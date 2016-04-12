@@ -1,5 +1,7 @@
 package org.javiermf.features.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,11 +10,13 @@ public class Configuration {
 
     String name;
 
+    @JsonIgnore
     Product product;
-    private Set<Feature> activedFeatures = new HashSet<Feature>();
 
-    Set<Feature> getEnabledFeatures() {
-        return new HashSet<Feature>();
+    Set<Feature> activedFeatures = new HashSet<Feature>();
+
+    public Set<Feature> getActivedFeatures() {
+        return activedFeatures;
     }
 
     public Set<String> availableFeatures() {
@@ -55,5 +59,14 @@ public class Configuration {
 
     public void deactive(Feature feature) {
         activedFeatures.remove(feature);
+    }
+
+    public void active(String featureName) {
+        for (Feature feature : product.getProductFeatures()) {
+            if (featureName.equalsIgnoreCase(feature.getName())) {
+                active(feature);
+            }
+        }
+
     }
 }

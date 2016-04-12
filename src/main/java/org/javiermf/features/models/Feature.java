@@ -1,10 +1,14 @@
 package org.javiermf.features.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Feature {
 
     String name;
     String description;
+
+    @JsonIgnore
     Product product;
 
     public static Feature withName(Product product, String featureName) {
@@ -12,6 +16,30 @@ public class Feature {
         feature.name = featureName;
         feature.product = product;
         return feature;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
