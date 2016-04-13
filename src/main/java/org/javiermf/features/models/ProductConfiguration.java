@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class Configuration {
+public class ProductConfiguration {
 
     String name;
 

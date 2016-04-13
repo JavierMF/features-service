@@ -1,8 +1,8 @@
 package org.javiermf.features.daos;
 
 import org.javiermf.features.exceptions.ObjectNotFoundException;
-import org.javiermf.features.models.Configuration;
 import org.javiermf.features.models.Product;
+import org.javiermf.features.models.ProductConfiguration;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class ProductsDAO {
 
     List<Product> allProducts;
 
-    List<Configuration> allConfigurations;
+    List<ProductConfiguration> allProductConfigurations;
 
     public ProductsDAO() {
         Product product1 = Product.buildWithFeatures("FEATURE_1", "FEATURE_2");
@@ -24,17 +24,17 @@ public class ProductsDAO {
         product2.setName("Product_2");
         allProducts = asList(product1, product2);
 
-        Configuration configuration1 = new Configuration();
-        configuration1.setProduct(product1);
-        configuration1.setName("Product_1_Configuration_1");
-        configuration1.active("FEATURE_1");
+        ProductConfiguration productConfiguration1 = new ProductConfiguration();
+        productConfiguration1.setProduct(product1);
+        productConfiguration1.setName("Product_1_Configuration_1");
+        productConfiguration1.active("FEATURE_1");
 
-        Configuration configuration2 = new Configuration();
-        configuration2.setProduct(product1);
-        configuration2.setName("Product_1_Configuration_2");
-        configuration2.active("FEATURE_1");
-        configuration2.active("FEATURE_2");
-        allConfigurations = asList(configuration1, configuration2);
+        ProductConfiguration productConfiguration2 = new ProductConfiguration();
+        productConfiguration2.setProduct(product1);
+        productConfiguration2.setName("Product_1_Configuration_2");
+        productConfiguration2.active("FEATURE_1");
+        productConfiguration2.active("FEATURE_2");
+        allProductConfigurations = asList(productConfiguration1, productConfiguration2);
     }
 
     public List<Product> getAllProducts() {
@@ -50,21 +50,21 @@ public class ProductsDAO {
     }
 
 
-    public List<Configuration> getConfigurationsForProduct(String productName) {
-        List<Configuration> configurationList = new ArrayList<Configuration>();
-        for (Configuration configuration : allConfigurations) {
-            if (productName.equalsIgnoreCase(configuration.getProduct().getName()))
-                configurationList.add(configuration);
+    public List<ProductConfiguration> getConfigurationsForProduct(String productName) {
+        List<ProductConfiguration> productConfigurationList = new ArrayList<ProductConfiguration>();
+        for (ProductConfiguration productConfiguration : allProductConfigurations) {
+            if (productName.equalsIgnoreCase(productConfiguration.getProduct().getName()))
+                productConfigurationList.add(productConfiguration);
         }
 
-        return configurationList;
+        return productConfigurationList;
     }
 
-    public Configuration getConfigurationWithNameForProduct(String productName, String configurationName) {
-        for (Configuration configuration : allConfigurations) {
-            if (configuration.getName().equalsIgnoreCase(configurationName) &&
-                    configuration.getProduct().getName().equalsIgnoreCase(productName)) {
-                return configuration;
+    public ProductConfiguration getConfigurationWithNameForProduct(String productName, String configurationName) {
+        for (ProductConfiguration productConfiguration : allProductConfigurations) {
+            if (productConfiguration.getName().equalsIgnoreCase(configurationName) &&
+                    productConfiguration.getProduct().getName().equalsIgnoreCase(productName)) {
+                return productConfiguration;
             }
         }
         throw new ObjectNotFoundException(productName + "," + configurationName);
