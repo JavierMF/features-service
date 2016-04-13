@@ -1,13 +1,21 @@
 package org.javiermf.features.models;
 
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class Product {
 
+    @Id
+    @GeneratedValue
+    Long id;
+
+    @Column(nullable = false)
     String name;
 
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     Set<Feature> productFeatures = new HashSet<Feature>();
 
     public Set<Feature> getProductFeatures() {

@@ -3,12 +3,23 @@ package org.javiermf.features.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+
+@Entity
 public class Feature {
 
+    @Id
+    @GeneratedValue
+    Long id;
+
+    @Column(nullable = false)
     String name;
+
+    @Column
     String description;
 
     @JsonIgnore
+    @ManyToOne
     Product product;
 
     public static Feature withName(Product product, String featureName) {

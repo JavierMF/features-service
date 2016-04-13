@@ -2,17 +2,25 @@ package org.javiermf.features.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Entity
 public class ProductConfiguration {
 
+    @Id
+    @GeneratedValue
+    Long id;
+
+    @Column(nullable = false)
     String name;
 
     @JsonIgnore
+    @ManyToOne
     Product product;
 
+    @ManyToMany(fetch = FetchType.EAGER)
     Set<Feature> activedFeatures = new HashSet<Feature>();
 
     public Set<Feature> getActivedFeatures() {

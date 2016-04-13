@@ -1,6 +1,7 @@
 package org.javiermf.features.services.rest;
 
 
+import org.javiermf.features.daos.ProductsConfigurationsDAO;
 import org.javiermf.features.daos.ProductsDAO;
 import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
@@ -21,14 +22,19 @@ import java.util.List;
 @Produces("application/json")
 public class ProductResource {
 
+
     @Autowired
     ProductsDAO productsDAO;
+
+    @Autowired
+    ProductsConfigurationsDAO configsDAO;
+
 
     @GET
     public List<String> getAllProducts() {
         List<String> allProducts = new ArrayList<String>();
 
-        for (Product product : productsDAO.getAllProducts()) {
+        for (Product product : productsDAO.findAll()) {
             allProducts.add(product.getName());
         }
 
@@ -38,7 +44,7 @@ public class ProductResource {
     @Path("{productName}")
     @GET
     public Product getProductByName(@PathParam("productName") String productName) {
-        return productsDAO.getProductByName(productName);
+        return productsDAO.findByName(productName);
     }
 
     @Path("{productName}/configurations")
@@ -46,7 +52,7 @@ public class ProductResource {
     public List<String> getConfigurationsForProduct(@PathParam("productName") String productName) {
         List<String> configurationsForProduct = new ArrayList<String>();
 
-        for (ProductConfiguration productConfiguration : productsDAO.getConfigurationsForProduct(productName)) {
+        for (ProductConfiguration productConfiguration : configsDAO.findByProductName(productName)) {
             configurationsForProduct.add(productConfiguration.getName());
         }
 
@@ -57,14 +63,14 @@ public class ProductResource {
     @GET
     public ProductConfiguration getConfigurationWithNameForProduct(@PathParam("productName") String productName,
                                                                    @PathParam("configurationName") String configurationName) {
-        return productsDAO.getConfigurationWithNameForProduct(productName, configurationName);
+        return configsDAO.findByNameAndProductName(productName, configurationName);
     }
 
     @Path("{productName}/configurations/{configurationName}/features")
     @GET
     public List<String> getConfigurationActivedFeatures(@PathParam("productName") String productName,
                                                         @PathParam("configurationName") String configurationName) {
-        ProductConfiguration productConfiguration = productsDAO.getConfigurationWithNameForProduct(productName, configurationName);
+        ProductConfiguration productConfiguration = configsDAO.findByNameAndProductName(productName, configurationName);
         List<String> featureNames = new ArrayList<String>();
         for (Feature feature : productConfiguration.getActivedFeatures()) {
             featureNames.add(feature.getName());
