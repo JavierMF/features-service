@@ -5,8 +5,8 @@ REST MicroService for managing products Feature Models (https://en.wikipedia.org
 
 ### TODO
 - [x] Implement JPA Integration
-- [X] Refactor to use Services
-- [ ] Implement REST tests
+- [x] Refactor to use Services
+- [x] Implement REST tests
 - [ ] Refactor to use Jersey Subresources
 - [ ] Implement editing REST resources
 - [ ] Implement features constraints
