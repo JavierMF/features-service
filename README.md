@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.org/JavierMF/features-service.svg?branch=master)](https://travis-ci.org/JavierMF/features-service)
+[![Build Status](https://travis-ci.org/JavierMF/features-service.svg?branch=develop](https://travis-ci.org/JavierMF/features-service)
 
 # Features Model MicroService
 
