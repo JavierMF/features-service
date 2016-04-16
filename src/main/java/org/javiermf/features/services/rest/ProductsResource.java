@@ -66,22 +66,5 @@ public class ProductsResource {
 
 
 
-    /*
-    OK /products/
-    OK /products/NAME  GET
-    OK /products/NAME  POST
-    OK /products/NAME  DELETE
-    OK /products/NAME/features/  GET
-       /products/NAME/features/NAME  POST
-       /products/NAME/features/NAME  PUT
-       /products/NAME/features/NAME  DELETE
 
-    OK /products/NAME/configurations/ GET
-    OK /products/NAME/configurations/NAME GET
-       /products/NAME/configurations/NAME POST
-       /products/NAME/configurations/NAME UPDATE
-       /products/NAME/configurations/NAME DELETE
-       /products/NAME/configurations/NAME/features/NAME POST
-       /products/NAME/configurations/NAME/features/NAME DELETE
-     */
 }
