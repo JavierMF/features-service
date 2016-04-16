@@ -40,4 +40,12 @@ public class ProductsFeaturesResource {
                                           @FormParam("description") String featureDescription) throws URISyntaxException {
         return productsService.updateFeatureOfProduct(productName, featureName, featureDescription);
     }
+
+    @DELETE
+    @Path("/{featureName}")
+    public Response deleteFeatureOfProduct(@PathParam("productName") String productName,
+                                           @PathParam("featureName") String featureName) throws URISyntaxException {
+        productsService.deleteFeatureOfProduct(productName, featureName);
+        return Response.noContent().build();
+    }
 }

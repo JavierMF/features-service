@@ -83,4 +83,16 @@ public class ProductsFeaturesIntegrationTests {
         assertThat(updatedFeature.getDescription(), is(equalTo("New Feature Description")));
     }
 
+    @Test
+    public void canDeleteAProductsFeatures() throws Exception {
+        when().
+                delete("/products/Product_1/features/Feature_1").
+                then().
+                statusCode(HttpStatus.SC_NO_CONTENT);
+
+
+        Product product = productsDAO.findByName("Product_1");
+        assertThat(product.getProductFeatures(), hasSize(1));
+    }
+
 }

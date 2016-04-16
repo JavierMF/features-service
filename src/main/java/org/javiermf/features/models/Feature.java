@@ -4,6 +4,7 @@ package org.javiermf.features.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Feature {
@@ -21,6 +22,10 @@ public class Feature {
     @JsonIgnore
     @ManyToOne
     Product product;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "activedFeatures")
+    Set<ProductConfiguration> inConfigurations;
 
     public static Feature withName(Product product, String featureName) {
         Feature feature = new Feature();
@@ -51,6 +56,10 @@ public class Feature {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override

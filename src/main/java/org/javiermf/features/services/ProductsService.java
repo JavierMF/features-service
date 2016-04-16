@@ -3,8 +3,10 @@ package org.javiermf.features.services;
 import org.javiermf.features.daos.ProductsDAO;
 import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
+import org.javiermf.features.models.ProductConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,12 +59,25 @@ public class ProductsService {
         productsDAO.insertFeature(feature);
     }
 
+    @Transactional
     public Feature updateFeatureOfProduct(String productName, String featureName, String featureDescription) {
         Product product = productsDAO.findByName(productName);
         Feature feature = product.findProductFeatureByName(featureName);
         feature.setDescription(featureDescription);
-        productsDAO.updateFeature(feature);
-
         return feature;
+    }
+
+    @Transactional
+    public void deleteFeatureOfProduct(String productName, String featureName) {
+        Product product = productsDAO.findByName(productName);
+        Feature feature = product.findProductFeatureByName(featureName);
+
+        for (ProductConfiguration productConfiguration : productsConfigurationsService.findConfigurationsWithFeatureActive(feature)) {
+            productConfiguration.getActivedFeatures().remove(feature);
+        }
+        ;
+
+        productsDAO.deleteFeature(feature);
+
     }
 }

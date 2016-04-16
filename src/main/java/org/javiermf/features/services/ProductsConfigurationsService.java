@@ -42,4 +42,8 @@ public class ProductsConfigurationsService {
     public void deleteConfigurationsForProduct(String productName) {
         productsConfigurationsDAO.deleteConfigurationsForProduct(productName);
     }
+
+    public List<ProductConfiguration> findConfigurationsWithFeatureActive(Feature feature) {
+        return productsConfigurationsDAO.findConfigurationsWithFeatureActive(feature);
+    }
 }

@@ -1,7 +1,7 @@
 package org.javiermf.features.daos;
 
+import com.mysema.query.jpa.impl.JPADeleteClause;
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.jpa.impl.JPAUpdateClause;
 import org.javiermf.features.exceptions.ObjectNotFoundException;
 import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
@@ -58,10 +58,9 @@ public class ProductsDAO {
     }
 
     @Transactional
-    public void updateFeature(Feature feature) {
-        JPAUpdateClause updateClause = new JPAUpdateClause(entityManager, qFeature);
-        updateClause.set(qFeature.description, feature.getDescription())
-                .where(qFeature.product.id.eq(feature.getProduct().getId()));
-        updateClause.execute();
+    public void deleteFeature(Feature feature) {
+        JPADeleteClause deleteClause = new JPADeleteClause(entityManager, qFeature);
+        deleteClause.where(qFeature.id.eq(feature.getId()));
+        deleteClause.execute();
     }
 }

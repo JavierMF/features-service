@@ -1,6 +1,7 @@
 package org.javiermf.features.daos;
 
 import com.mysema.query.jpa.impl.JPAQuery;
+import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.ProductConfiguration;
 import org.javiermf.features.models.QProduct;
 import org.javiermf.features.models.QProductConfiguration;
@@ -17,10 +18,11 @@ public class ProductsConfigurationsDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+    QProductConfiguration qProductConfiguration = QProductConfiguration.productConfiguration;
+    QProduct qProduct = QProduct.product;
 
     public List<ProductConfiguration> findByProductName(String productName) {
-        QProduct qProduct = QProduct.product;
-        QProductConfiguration qProductConfiguration = QProductConfiguration.productConfiguration;
+
 
         JPAQuery query = new JPAQuery(entityManager);
         query.from(qProductConfiguration)
@@ -31,7 +33,7 @@ public class ProductsConfigurationsDAO {
 
     public ProductConfiguration findByNameAndProductName(String productName, String configurationName) {
         QProduct qProduct = QProduct.product;
-        QProductConfiguration qProductConfiguration = QProductConfiguration.productConfiguration;
+
 
         JPAQuery query = new JPAQuery(entityManager);
         query.from(qProductConfiguration)
@@ -47,5 +49,13 @@ public class ProductsConfigurationsDAO {
             entityManager.remove(productConfiguration);
         }
 
+    }
+
+    public List<ProductConfiguration> findConfigurationsWithFeatureActive(Feature feature) {
+        JPAQuery query = new JPAQuery(entityManager);
+        query.from(qProductConfiguration)
+                .where(qProductConfiguration.activedFeatures.contains(feature));
+
+        return query.list(qProductConfiguration);
     }
 }
