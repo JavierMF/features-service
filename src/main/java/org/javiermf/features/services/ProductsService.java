@@ -1,12 +1,14 @@
 package org.javiermf.features.services;
 
 import org.javiermf.features.daos.ProductsDAO;
+import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProductsService {
@@ -41,5 +43,10 @@ public class ProductsService {
         Product product = new Product();
         product.setName(productName);
         productsDAO.insert(product);
+    }
+
+    public Set<Feature> getFeaturesForProduct(String productName) {
+        Product product = findByName(productName);
+        return product.getProductFeatures();
     }
 }

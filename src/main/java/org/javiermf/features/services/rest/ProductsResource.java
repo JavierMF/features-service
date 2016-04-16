@@ -24,6 +24,10 @@ public class ProductsResource {
     @Autowired
     ProductsConfigurationResource productsConfigurationResource;
 
+    @Autowired
+    ProductsFeaturesResource productsFeaturesResource;
+
+
     @GET
     public List<String> getAllProducts() {
         return productsService.getAllProductNames();
@@ -55,6 +59,10 @@ public class ProductsResource {
         return productsConfigurationResource;
     }
 
+    @Path("{productName}/features")
+    public ProductsFeaturesResource productsFeaturesResource() {
+        return productsFeaturesResource;
+    }
 
 
 
