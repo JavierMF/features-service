@@ -18,33 +18,7 @@ import static org.springframework.test.util.MatcherAssertionErrors.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest
-public class ProductResourceTests {
-
-    @Test
-    public void canFetchProducts() throws Exception {
-        List boydResponse =
-                when().
-                        get("/products").
-                        then().
-                        statusCode(HttpStatus.SC_OK).
-                        and()
-                        .extract().response().as(List.class);
-
-        assertThat(boydResponse, hasSize(2));
-
-    }
-
-    @Test
-    public void canFetchAProduct() throws Exception {
-        when().
-                get("/products/Product_1").
-                then().
-                statusCode(HttpStatus.SC_OK).
-                and().
-                body("name", is("Product_1")).
-                body("productFeatures", hasSize(2));
-
-    }
+public class ProductConfigurationsIntegrationTests {
 
     @Test
     public void canFetchConfigurations() throws Exception {
@@ -85,4 +59,5 @@ public class ProductResourceTests {
         assertThat(boydResponse, hasSize(1));
 
     }
+
 }

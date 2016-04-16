@@ -5,6 +5,7 @@ import org.javiermf.features.models.ProductConfiguration;
 import org.javiermf.features.models.QProduct;
 import org.javiermf.features.models.QProductConfiguration;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,5 +39,13 @@ public class ProductsConfigurationsDAO {
                 .where(qProduct.name.eq(productName)
                         .and(qProductConfiguration.name.eq(configurationName)));
         return query.singleResult(qProductConfiguration);
+    }
+
+    @Transactional
+    public void deleteConfigurationsForProduct(String productName) {
+        for (ProductConfiguration productConfiguration : findByProductName(productName)) {
+            entityManager.remove(productConfiguration);
+        }
+
     }
 }

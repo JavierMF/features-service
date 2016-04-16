@@ -15,7 +15,7 @@ public class Product {
     @Column(nullable = false)
     String name;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Feature> productFeatures = new HashSet<Feature>();
 
     public Set<Feature> getProductFeatures() {

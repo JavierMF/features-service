@@ -20,7 +20,7 @@ public class ProductConfiguration {
     @ManyToOne
     Product product;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     Set<Feature> activedFeatures = new HashSet<Feature>();
 
     public Set<Feature> getActivedFeatures() {

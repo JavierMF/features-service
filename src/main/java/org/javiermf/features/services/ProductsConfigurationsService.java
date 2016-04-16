@@ -38,4 +38,8 @@ public class ProductsConfigurationsService {
         }
         return featureNames;
     }
+
+    public void deleteConfigurationsForProduct(String productName) {
+        productsConfigurationsDAO.deleteConfigurationsForProduct(productName);
+    }
 }

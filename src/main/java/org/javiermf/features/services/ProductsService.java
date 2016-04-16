@@ -14,6 +14,9 @@ public class ProductsService {
     @Autowired
     ProductsDAO productsDAO;
 
+    @Autowired
+    ProductsConfigurationsService productsConfigurationsService;
+
 
     public List<String> getAllProductNames() {
         List<String> allProducts = new ArrayList<String>();
@@ -27,5 +30,16 @@ public class ProductsService {
 
     public Product findByName(String productName) {
         return productsDAO.findByName(productName);
+    }
+
+    public void deleteByName(String productName) {
+        productsConfigurationsService.deleteConfigurationsForProduct(productName);
+        productsDAO.deleteByName(productName);
+    }
+
+    public void add(String productName) {
+        Product product = new Product();
+        product.setName(productName);
+        productsDAO.insert(product);
     }
 }

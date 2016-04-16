@@ -6,10 +6,10 @@ import org.javiermf.features.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 
@@ -35,6 +35,21 @@ public class ProductsResource {
         return productsService.findByName(productName);
     }
 
+    @Path("{productName}")
+    @DELETE
+    public Response deleteProductByName(@PathParam("productName") String productName) {
+        productsService.deleteByName(productName);
+        return Response.noContent().build();
+    }
+
+    @Path("{productName}")
+    @POST
+    public Response addProduct(@PathParam("productName") String productName) throws URISyntaxException {
+        productsService.add(productName);
+        return Response.created(new URI("/products/" + productName)).build();
+    }
+
+
     @Path("{productName}/configurations")
     public ProductsConfigurationResource productsConfigurationResource() {
         return productsConfigurationResource;
@@ -44,12 +59,21 @@ public class ProductsResource {
 
 
     /*
-    /products/
-    /products/NAME  GET, POST, DELETE
-    /products/NAME/features/  GET
-    /products/NAME/features/NAME  POST,PUT, DELETE
-    /products/NAME/configurations/ GET
-    /products/NAME/configurations/NAME/ GET, POST, DELETE
-    /products/NAME/configurations/NAME/features/NAME POST, DELETE
+    OK /products/
+    OK /products/NAME  GET
+    OK /products/NAME  POST
+    OK /products/NAME  DELETE
+    OK /products/NAME/features/  GET
+       /products/NAME/features/NAME  POST
+       /products/NAME/features/NAME  PUT
+       /products/NAME/features/NAME  DELETE
+
+    OK /products/NAME/configurations/ GET
+    OK /products/NAME/configurations/NAME GET
+       /products/NAME/configurations/NAME POST
+       /products/NAME/configurations/NAME UPDATE
+       /products/NAME/configurations/NAME DELETE
+       /products/NAME/configurations/NAME/features/NAME POST
+       /products/NAME/configurations/NAME/features/NAME DELETE
      */
 }
