@@ -56,4 +56,13 @@ public class ProductsService {
         feature.setDescription(featureDescription);
         productsDAO.insertFeature(feature);
     }
+
+    public Feature updateFeatureOfProduct(String productName, String featureName, String featureDescription) {
+        Product product = productsDAO.findByName(productName);
+        Feature feature = product.findProductFeatureByName(featureName);
+        feature.setDescription(featureDescription);
+        productsDAO.updateFeature(feature);
+
+        return feature;
+    }
 }

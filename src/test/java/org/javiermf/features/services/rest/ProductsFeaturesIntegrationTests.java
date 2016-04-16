@@ -65,4 +65,22 @@ public class ProductsFeaturesIntegrationTests {
         assertThat(newFeature.getDescription(), is(equalTo("New Feature Description")));
     }
 
+    @Test
+    public void canUpdateProductsFeatures() throws Exception {
+        Feature feature = given().
+                formParam("description", "New Feature Description").
+                when().
+                put("/products/Product_1/features/Feature_1").
+                then().
+                statusCode(HttpStatus.SC_OK).
+                and()
+                .extract().response().as(Feature.class);
+
+        assertThat(feature.getDescription(), is(equalTo("New Feature Description")));
+
+        Product product = productsDAO.findByName("Product_1");
+        Feature updatedFeature = product.findProductFeatureByName("Feature_1");
+        assertThat(updatedFeature.getDescription(), is(equalTo("New Feature Description")));
+    }
+
 }

@@ -1,9 +1,11 @@
 package org.javiermf.features.daos;
 
 import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.jpa.impl.JPAUpdateClause;
 import org.javiermf.features.exceptions.ObjectNotFoundException;
 import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
+import org.javiermf.features.models.QFeature;
 import org.javiermf.features.models.QProduct;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ public class ProductsDAO {
     private EntityManager entityManager;
 
     QProduct qProduct = QProduct.product;
+    QFeature qFeature = QFeature.feature;
 
     public List<Product> findAll() {
         JPAQuery query = new JPAQuery(entityManager);
@@ -52,5 +55,13 @@ public class ProductsDAO {
     @Transactional
     public void insertFeature(Feature feature) {
         entityManager.persist(feature);
+    }
+
+    @Transactional
+    public void updateFeature(Feature feature) {
+        JPAUpdateClause updateClause = new JPAUpdateClause(entityManager, qFeature);
+        updateClause.set(qFeature.description, feature.getDescription())
+                .where(qFeature.product.id.eq(feature.getProduct().getId()));
+        updateClause.execute();
     }
 }

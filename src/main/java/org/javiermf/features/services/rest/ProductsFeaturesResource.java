@@ -32,4 +32,12 @@ public class ProductsFeaturesResource {
         productsService.addFeatureToProduct(productName, featureName, featureDescription);
         return Response.created(new URI("/products/" + productName + "/features/" + featureName)).build();
     }
+
+    @PUT
+    @Path("/{featureName}")
+    public Feature updateFeatureOfProduct(@PathParam("productName") String productName,
+                                          @PathParam("featureName") String featureName,
+                                          @FormParam("description") String featureDescription) throws URISyntaxException {
+        return productsService.updateFeatureOfProduct(productName, featureName, featureDescription);
+    }
 }

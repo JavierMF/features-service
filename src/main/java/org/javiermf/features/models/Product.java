@@ -1,6 +1,8 @@
 package org.javiermf.features.models;
 
 
+import org.javiermf.features.exceptions.ObjectNotFoundException;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +22,10 @@ public class Product {
 
     public Set<Feature> getProductFeatures() {
         return productFeatures;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void addFeature(Feature feature) {
@@ -55,6 +61,6 @@ public class Product {
             }
         }
 
-        return null;
+        throw new ObjectNotFoundException(featureName);
     }
 }
