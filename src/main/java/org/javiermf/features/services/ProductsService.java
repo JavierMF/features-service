@@ -1,5 +1,6 @@
 package org.javiermf.features.services;
 
+import org.javiermf.features.daos.ProductsConfigurationsDAO;
 import org.javiermf.features.daos.ProductsDAO;
 import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
@@ -19,7 +20,7 @@ public class ProductsService {
     ProductsDAO productsDAO;
 
     @Autowired
-    ProductsConfigurationsService productsConfigurationsService;
+    ProductsConfigurationsDAO productsConfigurationsDAO;
 
 
     public List<String> getAllProductNames() {
@@ -37,7 +38,7 @@ public class ProductsService {
     }
 
     public void deleteByName(String productName) {
-        productsConfigurationsService.deleteConfigurationsForProduct(productName);
+        productsConfigurationsDAO.deleteConfigurationsForProduct(productName);
         productsDAO.deleteByName(productName);
     }
 
@@ -72,7 +73,7 @@ public class ProductsService {
         Product product = productsDAO.findByName(productName);
         Feature feature = product.findProductFeatureByName(featureName);
 
-        for (ProductConfiguration productConfiguration : productsConfigurationsService.findConfigurationsWithFeatureActive(feature)) {
+        for (ProductConfiguration productConfiguration : productsConfigurationsDAO.findConfigurationsWithFeatureActive(feature)) {
             productConfiguration.getActivedFeatures().remove(feature);
         }
         ;

@@ -2,6 +2,7 @@ package org.javiermf.features.services;
 
 import org.javiermf.features.daos.ProductsConfigurationsDAO;
 import org.javiermf.features.models.Feature;
+import org.javiermf.features.models.Product;
 import org.javiermf.features.models.ProductConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ public class ProductsConfigurationsService {
 
     @Autowired
     ProductsConfigurationsDAO productsConfigurationsDAO;
+
+    @Autowired
+    ProductsService productsService;
 
 
     public List<String> getConfigurationsNamesForProduct(String productName) {
@@ -39,11 +43,13 @@ public class ProductsConfigurationsService {
         return featureNames;
     }
 
-    public void deleteConfigurationsForProduct(String productName) {
-        productsConfigurationsDAO.deleteConfigurationsForProduct(productName);
-    }
 
-    public List<ProductConfiguration> findConfigurationsWithFeatureActive(Feature feature) {
-        return productsConfigurationsDAO.findConfigurationsWithFeatureActive(feature);
+    public void add(String productName, String configurationName) {
+        Product product = productsService.findByName(productName);
+
+        ProductConfiguration configuration = new ProductConfiguration();
+        configuration.setName(configurationName);
+        configuration.setProduct(product);
+        productsConfigurationsDAO.insert(configuration);
     }
 }

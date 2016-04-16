@@ -5,10 +5,10 @@ import org.javiermf.features.services.ProductsConfigurationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @Component
@@ -37,6 +37,14 @@ public class ProductsConfigurationResource {
                                                         @PathParam("configurationName") String configurationName) {
         return configurationsService.getConfigurationActivedFeaturesNames(productName, configurationName);
 
+    }
+
+    @POST
+    @Path("/{configurationName}")
+    public Response addConfiguration(@PathParam("productName") String productName,
+                                     @PathParam("configurationName") String configurationName) throws URISyntaxException {
+        configurationsService.add(productName, configurationName);
+        return Response.created(new URI("/products/" + productName + "/configurations/" + configurationName)).build();
     }
 
 }

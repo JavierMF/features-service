@@ -58,4 +58,10 @@ public class ProductsConfigurationsDAO {
 
         return query.list(qProductConfiguration);
     }
+
+    @Transactional
+    public void insert(ProductConfiguration configuration) {
+        entityManager.persist(configuration);
+
+    }
 }
