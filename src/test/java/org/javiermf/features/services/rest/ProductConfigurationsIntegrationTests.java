@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import static org.springframework.test.util.MatcherAssertionErrors.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
+@Sql({"/empty-db.sql", "/data.sql"})
 @WebIntegrationTest
 public class ProductConfigurationsIntegrationTests {
 
@@ -77,6 +79,16 @@ public class ProductConfigurationsIntegrationTests {
 
         assertThat(configuration, is(notNullValue()));
         assertThat(configuration.getProduct().getName(), is(equalTo("Product_1")));
+    }
+
+    @Test
+    public void canDeleteAProductConfiguration() throws Exception {
+        when().
+                delete("/products/Product_1/configurations/Product_1_Configuration_1").
+                then().
+                statusCode(HttpStatus.SC_NO_CONTENT);
+
+        assertThat(productsConfigurationsDAO.findByProductName("Product_1"), hasSize(1));
     }
 
 }

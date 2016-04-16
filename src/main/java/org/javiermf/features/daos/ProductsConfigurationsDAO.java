@@ -64,4 +64,10 @@ public class ProductsConfigurationsDAO {
         entityManager.persist(configuration);
 
     }
+
+    @Transactional
+    public void deleteConfigurationForProduct(String productName, String configurationName) {
+        ProductConfiguration configuration = findByNameAndProductName(productName, configurationName);
+        entityManager.remove(configuration);
+    }
 }

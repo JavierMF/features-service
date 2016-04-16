@@ -47,4 +47,13 @@ public class ProductsConfigurationResource {
         return Response.created(new URI("/products/" + productName + "/configurations/" + configurationName)).build();
     }
 
+    @DELETE
+    @Path("/{configurationName}")
+    public Response deleteConfiguration(@PathParam("productName") String productName,
+                                        @PathParam("configurationName") String configurationName) throws URISyntaxException {
+        configurationsService.deleteByName(productName, configurationName);
+        return Response.noContent().build();
+    }
+
+
 }

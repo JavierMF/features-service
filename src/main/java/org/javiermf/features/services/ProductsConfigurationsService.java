@@ -52,4 +52,9 @@ public class ProductsConfigurationsService {
         configuration.setProduct(product);
         productsConfigurationsDAO.insert(configuration);
     }
+
+    public void deleteByName(String productName, String configurationName) {
+        productsConfigurationsDAO.deleteConfigurationForProduct(productName, configurationName);
+
+    }
 }
