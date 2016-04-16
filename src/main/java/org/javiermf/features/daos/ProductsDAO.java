@@ -2,6 +2,7 @@ package org.javiermf.features.daos;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import org.javiermf.features.exceptions.ObjectNotFoundException;
+import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
 import org.javiermf.features.models.QProduct;
 import org.springframework.stereotype.Repository;
@@ -46,5 +47,10 @@ public class ProductsDAO {
     @Transactional
     public void insert(Product product) {
         entityManager.persist(product);
+    }
+
+    @Transactional
+    public void insertFeature(Feature feature) {
+        entityManager.persist(feature);
     }
 }

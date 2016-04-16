@@ -47,4 +47,14 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Feature findProductFeatureByName(String featureName) {
+        for (Feature feature : getProductFeatures()) {
+            if (feature.name.equalsIgnoreCase(featureName)) {
+                return feature;
+            }
+        }
+
+        return null;
+    }
 }

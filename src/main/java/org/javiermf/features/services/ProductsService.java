@@ -49,4 +49,11 @@ public class ProductsService {
         Product product = findByName(productName);
         return product.getProductFeatures();
     }
+
+    public void addFeatureToProduct(String productName, String featureName, String featureDescription) {
+        Product product = findByName(productName);
+        Feature feature = Feature.withName(product, featureName);
+        feature.setDescription(featureDescription);
+        productsDAO.insertFeature(feature);
+    }
 }

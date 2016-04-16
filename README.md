@@ -15,14 +15,14 @@ REST MicroService for managing products Feature Models (https://en.wikipedia.org
 - [ ] Implement features constraints (dependencies, exclusions, etc.)
 - [ ] Implement value features
 
-### Services
+### Resources
 
  - [x]   GET /products/
  - [x]   GET /products/NAME
  - [x]   POST /products/NAME
  - [x]   DELETE /products/NAME
  - [x]   GET /products/NAME/features
- - [ ]   POST /products/NAME/features/NAME
+ - [x]   POST /products/NAME/features/NAME
  - [ ]   PUT /products/NAME/features/NAME
  - [ ]   DELETE /products/NAME/features/NAME
 

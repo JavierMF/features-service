@@ -5,9 +5,10 @@ import org.javiermf.features.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Set;
 
 @Component
@@ -21,5 +22,14 @@ public class ProductsFeaturesResource {
     public Set<Feature> getFeaturesForProduct(@PathParam("productName") String productName) {
         return productsService.getFeaturesForProduct(productName);
 
+    }
+
+    @POST
+    @Path("/{featureName}")
+    public Response addFeatureToProduct(@PathParam("productName") String productName,
+                                        @PathParam("featureName") String featureName,
+                                        @FormParam("description") String featureDescription) throws URISyntaxException {
+        productsService.addFeatureToProduct(productName, featureName, featureDescription);
+        return Response.created(new URI("/products/" + productName + "/features/" + featureName)).build();
     }
 }
