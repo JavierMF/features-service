@@ -63,4 +63,14 @@ public class Product {
 
         throw new ObjectNotFoundException(featureName);
     }
+
+    public boolean hasFeatureNamed(String featureName) {
+        for (Feature feature : getProductFeatures()) {
+            if (feature.name.equalsIgnoreCase(featureName)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

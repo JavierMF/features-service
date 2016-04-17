@@ -66,6 +66,21 @@ public class ProductsFeaturesIntegrationTests {
     }
 
     @Test
+    public void canNotAddDuplicatedProductsFeatures() throws Exception {
+        given().
+                formParam("description", "Existing Feature Description").
+                when().
+                post("/products/Product_1/features/Feature_1").
+                then().
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+
+        Product product = productsDAO.findByName("Product_1");
+
+        assertThat(product.getProductFeatures(), hasSize(2));
+
+    }
+
+    @Test
     public void canUpdateProductsFeatures() throws Exception {
         Feature feature = given().
                 formParam("description", "New Feature Description").

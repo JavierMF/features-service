@@ -79,4 +79,7 @@ public class ProductConfiguration {
         deactive(feature);
     }
 
+    public boolean hasActiveFeature(String featureName) {
+        return activedFeatures().contains(featureName);
+    }
 }

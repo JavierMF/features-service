@@ -89,6 +89,27 @@ public class ProductConfigurationsIntegrationTests {
         assertThat(configuration.getActivedFeatures(), hasSize(2));
     }
 
+    @Test
+    public void canNotAddDuplicatedActivedFeatureToAConfiguration() throws Exception {
+        when().
+                post("/products/Product_1/configurations/Product_1_Configuration_2/features/Feature_2").
+                then().
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+
+        ProductConfiguration configuration = productsConfigurationsDAO.findByNameAndProductName("Product_1", "Product_1_Configuration_2");
+
+        assertThat(configuration.getActivedFeatures(), hasSize(1));
+    }
+
+    @Test
+    public void canNotAddAFeatureOfOtherProductToAConfiguration() throws Exception {
+        when().
+                post("/products/Product_1/configurations/Product_1_Configuration_2/features/Feature_B").
+                then().
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+    }
+
+
 
     @Test
     public void canDeleteAActivedFeatureFromAConfiguration() throws Exception {

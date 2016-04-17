@@ -2,6 +2,7 @@ package org.javiermf.features.services;
 
 import org.javiermf.features.daos.ProductsConfigurationsDAO;
 import org.javiermf.features.daos.ProductsDAO;
+import org.javiermf.features.exceptions.DuplicatedObjectException;
 import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
 import org.javiermf.features.models.ProductConfiguration;
@@ -55,6 +56,9 @@ public class ProductsService {
 
     public void addFeatureToProduct(String productName, String featureName, String featureDescription) {
         Product product = findByName(productName);
+        if (product.hasFeatureNamed(featureName)) {
+            throw new DuplicatedObjectException(featureName);
+        }
         Feature feature = Feature.withName(product, featureName);
         feature.setDescription(featureDescription);
         productsDAO.insertFeature(feature);
@@ -76,9 +80,7 @@ public class ProductsService {
         for (ProductConfiguration productConfiguration : productsConfigurationsDAO.findConfigurationsWithFeatureActive(feature)) {
             productConfiguration.getActivedFeatures().remove(feature);
         }
-        ;
 
         productsDAO.deleteFeature(feature);
-
     }
 }

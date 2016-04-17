@@ -1,6 +1,7 @@
 package org.javiermf.features.services;
 
 import org.javiermf.features.daos.ProductsConfigurationsDAO;
+import org.javiermf.features.exceptions.DuplicatedObjectException;
 import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
 import org.javiermf.features.models.ProductConfiguration;
@@ -68,6 +69,9 @@ public class ProductsConfigurationsService {
     @Transactional
     public void addFeatureFromConfiguration(String productName, String configurationName, String featureName) {
         ProductConfiguration configuration = productsConfigurationsDAO.findByNameAndProductName(productName, configurationName);
+        if (configuration.hasActiveFeature(featureName)) {
+            throw new DuplicatedObjectException(featureName);
+        }
         configuration.active(featureName);
     }
 }

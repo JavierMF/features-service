@@ -31,5 +31,5 @@ REST MicroService for managing products Feature Models (https://en.wikipedia.org
  - [x]   POST /products/NAME/configurations/NAME
  - [x]   DELETE /products/NAME/configurations/NAME
  - [x]   GET /products/NAME/configurations/NAME/features
- - [ ]   POST /products/NAME/configurations/NAME/features/NAME
+ - [x]   POST /products/NAME/configurations/NAME/features/NAME
  - [x]   DELETE /products/NAME/configurations/NAME/features/NAME
