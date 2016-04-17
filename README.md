@@ -10,7 +10,7 @@ REST MicroService for managing products Feature Models (https://en.wikipedia.org
 - [x] Refactor to use Services
 - [x] Implement REST tests
 - [x] Refactor to use Jersey Subresources
-- [ ] Implement editing REST resources
+- [x] Implement editing REST resources
 - [ ] Add Swagger support
 - [ ] Implement features constraints (dependencies, exclusions, etc.)
 - [ ] Implement value features
