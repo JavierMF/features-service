@@ -64,4 +64,10 @@ public class ProductsConfigurationsService {
         ProductConfiguration configuration = productsConfigurationsDAO.findByNameAndProductName(productName, configurationName);
         configuration.deactive(featureName);
     }
+
+    @Transactional
+    public void addFeatureFromConfiguration(String productName, String configurationName, String featureName) {
+        ProductConfiguration configuration = productsConfigurationsDAO.findByNameAndProductName(productName, configurationName);
+        configuration.active(featureName);
+    }
 }

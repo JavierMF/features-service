@@ -78,6 +78,19 @@ public class ProductConfigurationsIntegrationTests {
     }
 
     @Test
+    public void canAddAnActivedFeatureToAConfiguration() throws Exception {
+        when().
+                post("/products/Product_1/configurations/Product_1_Configuration_2/features/Feature_1").
+                then().
+                statusCode(HttpStatus.SC_CREATED);
+
+        ProductConfiguration configuration = productsConfigurationsDAO.findByNameAndProductName("Product_1", "Product_1_Configuration_2");
+
+        assertThat(configuration.getActivedFeatures(), hasSize(2));
+    }
+
+
+    @Test
     public void canDeleteAActivedFeatureFromAConfiguration() throws Exception {
         when().
                 delete("/products/Product_1/configurations/Product_1_Configuration_1/features/Feature_1").

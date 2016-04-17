@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @Component
@@ -22,11 +24,22 @@ public class ProductsConfigurationFeaturesResource {
 
     }
 
+    @POST
+    @Path("/{featureName}")
+    public Response addFeatureToConfiguration(@PathParam("productName") String productName,
+                                              @PathParam("configurationName") String configurationName,
+                                              @PathParam("featureName") String featureName
+    ) throws URISyntaxException {
+        configurationsService.addFeatureFromConfiguration(productName, configurationName, featureName);
+        return Response.created(new URI("/products/" + productName + "/configurations/" + configurationName + "/features/" + featureName)).build();
+    }
+
+
     @DELETE
     @Path("/{featureName}")
-    public Response deleteConfiguration(@PathParam("productName") String productName,
-                                        @PathParam("configurationName") String configurationName,
-                                        @PathParam("featureName") String featureName
+    public Response deleteFeature(@PathParam("productName") String productName,
+                                  @PathParam("configurationName") String configurationName,
+                                  @PathParam("featureName") String featureName
     ) {
         configurationsService.removeFeatureFromConfiguration(productName, configurationName, featureName);
         return Response.noContent().build();
