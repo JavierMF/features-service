@@ -1,6 +1,7 @@
 package org.javiermf.features.services.rest;
 
 
+import io.swagger.annotations.Api;
 import org.javiermf.features.models.Product;
 import org.javiermf.features.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.List;
 @Component
 @Path("/products")
 @Produces("application/json")
+@Api
 public class ProductsResource {
 
     @Autowired
