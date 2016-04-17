@@ -6,6 +6,7 @@ import org.javiermf.features.models.Product;
 import org.javiermf.features.models.ProductConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,5 +57,11 @@ public class ProductsConfigurationsService {
     public void deleteByName(String productName, String configurationName) {
         productsConfigurationsDAO.deleteConfigurationForProduct(productName, configurationName);
 
+    }
+
+    @Transactional
+    public void removeFeatureFromConfiguration(String productName, String configurationName, String featureName) {
+        ProductConfiguration configuration = productsConfigurationsDAO.findByNameAndProductName(productName, configurationName);
+        configuration.deactive(featureName);
     }
 }

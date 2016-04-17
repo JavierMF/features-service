@@ -18,6 +18,9 @@ public class ProductsConfigurationResource {
     @Autowired
     ProductsConfigurationsService configurationsService;
 
+    @Autowired
+    ProductsConfigurationFeaturesResource productsConfigurationFeaturesResource;
+
     @GET
     public List<String> getConfigurationsForProduct(@PathParam("productName") String productName) {
         return configurationsService.getConfigurationsNamesForProduct(productName);
@@ -29,14 +32,6 @@ public class ProductsConfigurationResource {
     public ProductConfiguration getConfigurationWithNameForProduct(@PathParam("productName") String productName,
                                                                    @PathParam("configurationName") String configurationName) {
         return configurationsService.findByNameAndProductName(productName, configurationName);
-    }
-
-    @Path("/{configurationName}/features")
-    @GET
-    public List<String> getConfigurationActivedFeatures(@PathParam("productName") String productName,
-                                                        @PathParam("configurationName") String configurationName) {
-        return configurationsService.getConfigurationActivedFeaturesNames(productName, configurationName);
-
     }
 
     @POST
@@ -53,6 +48,13 @@ public class ProductsConfigurationResource {
                                         @PathParam("configurationName") String configurationName) throws URISyntaxException {
         configurationsService.deleteByName(productName, configurationName);
         return Response.noContent().build();
+    }
+
+    @Path("/{configurationName}/features")
+    public ProductsConfigurationFeaturesResource getConfigurationActivedFeatures(@PathParam("productName") String productName,
+                                                                                 @PathParam("configurationName") String configurationName) {
+        return productsConfigurationFeaturesResource;
+
     }
 
 

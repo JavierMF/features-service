@@ -70,11 +70,13 @@ public class ProductConfiguration {
     }
 
     public void active(String featureName) {
-        for (Feature feature : product.getProductFeatures()) {
-            if (featureName.equalsIgnoreCase(feature.getName())) {
-                active(feature);
-            }
-        }
-
+        Feature feature = product.findProductFeatureByName(featureName);
+        active(feature);
     }
+
+    public void deactive(String featureName) {
+        Feature feature = product.findProductFeatureByName(featureName);
+        deactive(feature);
+    }
+
 }

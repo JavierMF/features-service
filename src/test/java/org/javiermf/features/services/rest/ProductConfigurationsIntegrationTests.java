@@ -55,20 +55,6 @@ public class ProductConfigurationsIntegrationTests {
     }
 
     @Test
-    public void canFetchAConfigurationActivedFeatures() throws Exception {
-        List boydResponse =
-                when().
-                        get("/products/Product_1/configurations/Product_1_Configuration_2/features").
-                        then().
-                        statusCode(HttpStatus.SC_OK).
-                        and()
-                        .extract().response().as(List.class);
-
-        assertThat(boydResponse, hasSize(1));
-
-    }
-
-    @Test
     public void canAddProductsConfigurations() throws Exception {
         when().
                 post("/products/Product_1/configurations/newConfig").
@@ -89,6 +75,18 @@ public class ProductConfigurationsIntegrationTests {
                 statusCode(HttpStatus.SC_NO_CONTENT);
 
         assertThat(productsConfigurationsDAO.findByProductName("Product_1"), hasSize(1));
+    }
+
+    @Test
+    public void canDeleteAActivedFeatureFromAConfiguration() throws Exception {
+        when().
+                delete("/products/Product_1/configurations/Product_1_Configuration_1/features/Feature_1").
+                then().
+                statusCode(HttpStatus.SC_NO_CONTENT);
+
+        ProductConfiguration configuration = productsConfigurationsDAO.findByNameAndProductName("Product_1", "Product_1_Configuration_1");
+        assertThat(configuration.getActivedFeatures(), hasSize(1));
+
     }
 
 }
