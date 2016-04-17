@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar  target/features-service-1.0.0-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar target/*.jar
