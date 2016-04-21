@@ -5,6 +5,8 @@ import org.javiermf.features.exceptions.DuplicatedObjectException;
 import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
 import org.javiermf.features.models.ProductConfiguration;
+import org.javiermf.features.models.evaluation.ConfigurationEvaluator;
+import org.javiermf.features.models.evaluation.EvaluationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,8 @@ public class ProductsConfigurationsService {
     @Autowired
     ProductsService productsService;
 
+    @Autowired
+    ConfigurationEvaluator configurationEvaluator;
 
     public List<String> getConfigurationsNamesForProduct(String productName) {
         List<String> configurationsForProduct = new ArrayList<String>();
@@ -61,17 +65,23 @@ public class ProductsConfigurationsService {
     }
 
     @Transactional
-    public void removeFeatureFromConfiguration(String productName, String configurationName, String featureName) {
+    public EvaluationResult removeFeatureFromConfiguration(String productName, String configurationName, String featureName) {
         ProductConfiguration configuration = productsConfigurationsDAO.findByNameAndProductName(productName, configurationName);
         configuration.deactive(featureName);
+
+        Product product = configuration.getProduct();
+        return configurationEvaluator.evaluateConfiguration(configuration, product.getProductFeatureConstraints());
     }
 
     @Transactional
-    public void addFeatureFromConfiguration(String productName, String configurationName, String featureName) {
+    public EvaluationResult addFeatureFromConfiguration(String productName, String configurationName, String featureName) {
         ProductConfiguration configuration = productsConfigurationsDAO.findByNameAndProductName(productName, configurationName);
         if (configuration.hasActiveFeature(featureName)) {
             throw new DuplicatedObjectException(featureName);
         }
         configuration.active(featureName);
+
+        Product product = configuration.getProduct();
+        return configurationEvaluator.evaluateConfiguration(configuration, product.getProductFeatureConstraints());
     }
 }

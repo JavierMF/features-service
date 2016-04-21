@@ -2,6 +2,7 @@ package org.javiermf.features.models;
 
 
 import org.javiermf.features.exceptions.ObjectNotFoundException;
+import org.javiermf.features.models.constraints.FeatureConstraint;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,6 +20,9 @@ public class Product {
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Feature> productFeatures = new HashSet<Feature>();
+
+    @OneToMany(mappedBy = "forProduct", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Set<FeatureConstraint> productFeatureConstraints = new HashSet<FeatureConstraint>();
 
     public Set<Feature> getProductFeatures() {
         return productFeatures;
@@ -54,6 +58,10 @@ public class Product {
         this.name = name;
     }
 
+    public Set<FeatureConstraint> getProductFeatureConstraints() {
+        return productFeatureConstraints;
+    }
+
     public Feature findProductFeatureByName(String featureName) {
         for (Feature feature : getProductFeatures()) {
             if (feature.name.equalsIgnoreCase(featureName)) {
@@ -72,5 +80,9 @@ public class Product {
         }
 
         return false;
+    }
+
+    public void addFeatureConstraint(FeatureConstraint constraint) {
+        productFeatureConstraints.add(constraint);
     }
 }

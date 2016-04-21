@@ -1,5 +1,7 @@
 package org.javiermf.features.services.rest;
 
+import org.javiermf.features.exceptions.WrongProductConfigurationException;
+import org.javiermf.features.models.evaluation.EvaluationResult;
 import org.javiermf.features.services.ProductsConfigurationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,9 +31,14 @@ public class ProductsConfigurationFeaturesResource {
     public Response addFeatureToConfiguration(@PathParam("productName") String productName,
                                               @PathParam("configurationName") String configurationName,
                                               @PathParam("featureName") String featureName
-    ) throws URISyntaxException {
-        configurationsService.addFeatureFromConfiguration(productName, configurationName, featureName);
-        return Response.created(new URI("/products/" + productName + "/configurations/" + configurationName + "/features/" + featureName)).build();
+    ) throws URISyntaxException, WrongProductConfigurationException {
+        EvaluationResult result = configurationsService.addFeatureFromConfiguration(productName, configurationName, featureName);
+        if (result.isValid) {
+            return Response.created(new URI("/products/" + productName + "/configurations/" + configurationName + "/features/" + featureName)).build();
+        } else {
+            throw new WrongProductConfigurationException(result.evaluationErrorMessages);
+        }
+
     }
 
 
@@ -40,9 +47,13 @@ public class ProductsConfigurationFeaturesResource {
     public Response deleteFeature(@PathParam("productName") String productName,
                                   @PathParam("configurationName") String configurationName,
                                   @PathParam("featureName") String featureName
-    ) {
-        configurationsService.removeFeatureFromConfiguration(productName, configurationName, featureName);
-        return Response.noContent().build();
+    ) throws WrongProductConfigurationException {
+        EvaluationResult result = configurationsService.removeFeatureFromConfiguration(productName, configurationName, featureName);
+        if (result.isValid) {
+            return Response.noContent().build();
+        } else {
+            throw new WrongProductConfigurationException(result.evaluationErrorMessages);
+        }
     }
 
 }

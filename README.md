@@ -12,10 +12,12 @@ REST MicroService for managing products Feature Models (https://en.wikipedia.org
 - [x] Refactor to use Jersey Subresources
 - [x] Implement editing REST resources
 - [x] Add Swagger support
-- [ ] Implement features constraints (dependencies, exclusions, etc.)
+- [ ] Implement features constraints (dependencies, exclusions, feature set with min1-max, etc.)
+- [ ] A configuration is invalid if product constraints does not fulfill
 - [ ] Document API
 - [ ] Add CORS support
 - [ ] Implement value features
+
 
 ### Resources
 
