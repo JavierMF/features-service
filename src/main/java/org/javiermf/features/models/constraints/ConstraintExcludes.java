@@ -23,9 +23,13 @@ public class ConstraintExcludes extends FeatureConstraint {
         this.excludedFeatureName = excludedFeatureName;
     }
 
-
     @Override
     public EvaluationResult evaluateConfiguration(EvaluationResult currentResult, ProductConfiguration configuration) {
+        if (configuration.hasActiveFeature(sourceFeatureName) &&
+                configuration.hasActiveFeature(excludedFeatureName)) {
+            currentResult.isValid = false;
+            currentResult.evaluationErrorMessages.add(String.format("Feauture %s can not be active when feature %s is active", excludedFeatureName, sourceFeatureName));
+        }
         return currentResult;
     }
 
