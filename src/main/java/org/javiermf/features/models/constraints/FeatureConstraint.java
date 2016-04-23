@@ -18,5 +18,15 @@ public abstract class FeatureConstraint {
     @ManyToOne
     Product forProduct;
 
+    public abstract String getType();
+
     public abstract EvaluationResult evaluateConfiguration(EvaluationResult currentResult, ProductConfiguration configuration);
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

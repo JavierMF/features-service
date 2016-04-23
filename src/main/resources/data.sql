@@ -11,7 +11,7 @@ insert into Product_Configuration_Actived_Features (in_configurations_id, active
 
 insert into Product (id, name) values (2, 'Product_2');
 insert into Feature (id, name,product_id) values (3, 'Feature_A',2), (4, 'Feature_B',2), (6, 'Feature_C',2);
-insert into Constraint_Excludes (id, for_product_id, excluded_feature_name, source_feature_name) values (1,1,'Feature_1','Feature_3');
+insert into Constraint_Excludes (id, for_product_id, excluded_feature_name, source_feature_name) values (1,2,'Feature_B','Feature_C');
 insert into Product_Configuration (id, name,product_id) values (3, 'Product_2_Configuration_1',2),(4, 'Product_2_Configuration_2',2);
 insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (3,3);
 insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (3,4);

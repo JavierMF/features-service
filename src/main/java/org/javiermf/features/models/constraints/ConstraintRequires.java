@@ -23,6 +23,11 @@ public class ConstraintRequires extends FeatureConstraint {
         this.requiredFeatureName = requiredFeatureName;
     }
 
+    @Override
+    public String getType() {
+        return "requires";
+    }
+
     // If sourceFeature is active, requiredFeature must be active too
     @Override
     public EvaluationResult evaluateConfiguration(EvaluationResult currentResult, ProductConfiguration configuration) {
@@ -31,5 +36,21 @@ public class ConstraintRequires extends FeatureConstraint {
             currentResult.derivedFeatures.add(requiredFeatureName);
         }
         return currentResult;
+    }
+
+    public String getSourceFeatureName() {
+        return sourceFeatureName;
+    }
+
+    public void setSourceFeatureName(String sourceFeatureName) {
+        this.sourceFeatureName = sourceFeatureName;
+    }
+
+    public String getRequiredFeatureName() {
+        return requiredFeatureName;
+    }
+
+    public void setRequiredFeatureName(String requiredFeatureName) {
+        this.requiredFeatureName = requiredFeatureName;
     }
 }

@@ -1,6 +1,7 @@
 package org.javiermf.features.models;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.javiermf.features.exceptions.ObjectNotFoundException;
 import org.javiermf.features.models.constraints.FeatureConstraint;
 
@@ -24,6 +25,7 @@ public class Product {
     @OneToMany(mappedBy = "forProduct", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<FeatureConstraint> productFeatureConstraints = new HashSet<FeatureConstraint>();
 
+    @JsonProperty("features")
     public Set<Feature> getProductFeatures() {
         return productFeatures;
     }
@@ -58,6 +60,7 @@ public class Product {
         this.name = name;
     }
 
+    @JsonProperty("constraints")
     public Set<FeatureConstraint> getProductFeatureConstraints() {
         return productFeatureConstraints;
     }

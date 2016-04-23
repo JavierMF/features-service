@@ -24,6 +24,11 @@ public class ConstraintExcludes extends FeatureConstraint {
     }
 
     @Override
+    public String getType() {
+        return "excludes";
+    }
+
+    @Override
     public EvaluationResult evaluateConfiguration(EvaluationResult currentResult, ProductConfiguration configuration) {
         if (configuration.hasActiveFeature(sourceFeatureName) &&
                 configuration.hasActiveFeature(excludedFeatureName)) {
@@ -33,5 +38,19 @@ public class ConstraintExcludes extends FeatureConstraint {
         return currentResult;
     }
 
-    // If excludedFeature is active, requiredFeature can not be activated
+    public String getSourceFeatureName() {
+        return sourceFeatureName;
+    }
+
+    public void setSourceFeatureName(String sourceFeatureName) {
+        this.sourceFeatureName = sourceFeatureName;
+    }
+
+    public String getExcludedFeatureName() {
+        return excludedFeatureName;
+    }
+
+    public void setExcludedFeatureName(String excludedFeatureName) {
+        this.excludedFeatureName = excludedFeatureName;
+    }
 }

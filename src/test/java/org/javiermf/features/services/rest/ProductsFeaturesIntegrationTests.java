@@ -43,7 +43,7 @@ public class ProductsFeaturesIntegrationTests {
         assertThat(boydResponse, hasSize(3));
 
         Map<String, String> featureObject = (Map<String, String>) boydResponse.get(0);
-        assertThat(featureObject.get("name"), is(anyOf(equalTo("Feature_1"), equalTo("Feature_2"))));
+        assertThat(featureObject.get("name"), is(anyOf(equalTo("Feature_1"), equalTo("Feature_2"), equalTo("Feature_3"))));
 
     }
 
