@@ -12,9 +12,9 @@ REST MicroService for managing products Feature Models (https://en.wikipedia.org
 As defined by Wikipedia, "a feature model is a compact representation of all the products of the Software Product Line (SPL) in terms of features". The focus of SPL development is on the systematic and efficient creation of similar programs.
 
 The goal of this project is to provide a REST based service for:
- - defining products, their potential features and the constraints between its features.
- - defining product configurations, understood as a set of active features of those supported by the product which fulfil the features constraints.
- - querying the active features for a configuration, so an application in runtime can change its behaviour depending on the active features of a configuration depending, for instance, on the logged user, the client, etc.
+ - **defining products**, their available features and the activation constraints between its features.
+ - **defining product configurations**, understood as a set of active features of those supported by the product which fulfil the features constraints.
+ - **querying the active features for a configuration**, so an application in runtime can change its behaviour according to the active features of a configuration depending, for instance, on the logged user, the client, etc.
 
 
 ## Using the REST service
@@ -84,7 +84,7 @@ POST /products/ELEARNING_SITE/constraints/excluded
 ```
 sending as form parameters "sourceConstraint=ON_TRIAL_PERIOD" and "excludedConstraint=SELLING_COURSES".
 
-### Working wth Product Configurations
+### Working with Product Configurations
 
 To add a new configuration for one product:
 ```
