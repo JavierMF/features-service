@@ -1,17 +1,23 @@
+insert into Product (id, name) values (1, 'ELEARNING_SITE');
+insert into Feature (id, name,product_id) values (1, 'VIDEO_LESSONS',1);
+insert into Feature (id, name,product_id) values (2, 'ONLINE_FORUM',1);
+insert into Feature (id, name,product_id) values (3, 'CHAT',1);
+insert into Feature (id, name,product_id) values (4, 'MAILING_LIST',1);
+insert into Feature (id, name,product_id) values (5, 'COURSE_SELLING',1);
+insert into Feature (id, name,product_id) values (6, 'PAYPAL_PAYMENT',1);
+insert into Feature (id, name,product_id) values (7, 'CREDIT_CARD_PAYMENT',1);
+insert into Feature (id, name,product_id) values (8, 'REDEEM_CODES',1);
+insert into Feature (id, name,product_id) values (9, 'IN_TRIAL_PERIOD',1);
 
-insert into Product (id, name) values (1, 'Product_1');
-insert into Feature (id, name,product_id) values (1, 'Feature_1',1), (2, 'Feature_2',1), (5, 'Feature_3',1);
-insert into Constraint_Requires (id, for_product_id, source_feature_name, required_feature_name ) values (1,1,'Feature_3','Feature_2');
-insert into Product_Configuration (id, name,product_id) values (1, 'Product_1_Configuration_1',1),(2, 'Product_1_Configuration_2',1);
+insert into Constraint_Requires (id, for_product_id, source_feature_name, required_feature_name ) values (1,1,'PAYPAL_PAYMENT','COURSE_SELLING');
+insert into Constraint_Requires (id, for_product_id, source_feature_name, required_feature_name ) values (2,1,'CREDIT_CARD','COURSE_SELLING');
+insert into Constraint_Excludes (id, for_product_id, source_feature_name, excluded_feature_name ) values (3,1,'IN_TRIAL_PERIOD','COURSE_SELLING');
+
+insert into Product_Configuration (id, name,product_id) values (1, 'UNIVERSITY_X',1);
 insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (1,1);
 insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (1,2);
-insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (2,2);
+insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (1,3);
+insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (1,9);
 
 
 
-insert into Product (id, name) values (2, 'Product_2');
-insert into Feature (id, name,product_id) values (3, 'Feature_A',2), (4, 'Feature_B',2), (6, 'Feature_C',2);
-insert into Constraint_Excludes (id, for_product_id, excluded_feature_name, source_feature_name) values (1,2,'Feature_B','Feature_C');
-insert into Product_Configuration (id, name,product_id) values (3, 'Product_2_Configuration_1',2),(4, 'Product_2_Configuration_2',2);
-insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (3,3);
-insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (3,4);

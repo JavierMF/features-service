@@ -20,7 +20,7 @@ import static org.springframework.test.util.MatcherAssertionErrors.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-@Sql({"/empty-db.sql", "/data.sql"})
+@Sql({"/empty-db.sql", "/data-test.sql"})
 @WebIntegrationTest
 public class ProductConfigurationsIntegrationTests {
 
