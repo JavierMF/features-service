@@ -65,6 +65,7 @@ public class ProductConfigurationsIntegrationTests {
 
         assertThat(configuration, is(notNullValue()));
         assertThat(configuration.getProduct().getName(), is(equalTo("Product_1")));
+        assertThat(configuration.isValid(), is(true));
     }
 
     @Test
@@ -80,7 +81,7 @@ public class ProductConfigurationsIntegrationTests {
     @Test
     public void canAddAnActivedFeatureToAConfiguration() throws Exception {
         when().
-                post("/products/Product_1/configurations/Product_1_Configuration_2/features/Feature_1").
+                post("/products/Product_1/configurations/Product_1_Configuration_2/features/Feature_2").
                 then().
                 statusCode(HttpStatus.SC_CREATED);
 
@@ -92,7 +93,7 @@ public class ProductConfigurationsIntegrationTests {
     @Test
     public void canNotAddDuplicatedActivedFeatureToAConfiguration() throws Exception {
         when().
-                post("/products/Product_1/configurations/Product_1_Configuration_2/features/Feature_2").
+                post("/products/Product_1/configurations/Product_1_Configuration_2/features/Feature_1").
                 then().
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
 

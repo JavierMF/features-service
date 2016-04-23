@@ -69,9 +69,9 @@ public class ProductsConfigurationsService {
         ProductConfiguration configuration = productsConfigurationsDAO.findByNameAndProductName(productName, configurationName);
         configuration.deactive(featureName);
 
-        Product product = configuration.getProduct();
-        return configurationEvaluator.evaluateConfiguration(configuration, product.getProductFeatureConstraints());
+        return evaluateAndUpdateConfiguration(configuration);
     }
+
 
     @Transactional
     public EvaluationResult addFeatureFromConfiguration(String productName, String configurationName, String featureName) {
@@ -81,7 +81,13 @@ public class ProductsConfigurationsService {
         }
         configuration.active(featureName);
 
+        return evaluateAndUpdateConfiguration(configuration);
+    }
+
+    private EvaluationResult evaluateAndUpdateConfiguration(ProductConfiguration configuration) {
         Product product = configuration.getProduct();
-        return configurationEvaluator.evaluateConfiguration(configuration, product.getProductFeatureConstraints());
+        EvaluationResult evaluationResult = configurationEvaluator.evaluateConfiguration(configuration, product.getProductFeatureConstraints());
+        configuration.setValid(evaluationResult.isValid);
+        return evaluationResult;
     }
 }

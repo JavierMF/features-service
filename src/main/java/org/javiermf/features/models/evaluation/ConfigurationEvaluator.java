@@ -25,6 +25,7 @@ public class ConfigurationEvaluator {
         if (result.isValid && !result.derivedFeatures.isEmpty()) {
             for (String derivedFeature : result.derivedFeatures) {
                 configuration.active(derivedFeature);
+                result.derivedFeatures.remove(derivedFeature);
                 result = this.addEvaluationsToResult(result, configuration, featureConstraints);
             }
 

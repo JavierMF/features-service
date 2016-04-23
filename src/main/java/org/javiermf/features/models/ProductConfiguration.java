@@ -16,6 +16,9 @@ public class ProductConfiguration {
     @Column(nullable = false)
     String name;
 
+    @Column
+    Boolean valid = true;
+
     @JsonIgnore
     @ManyToOne
     Product product;
@@ -58,6 +61,14 @@ public class ProductConfiguration {
 
     public Set<String> activedFeatures() {
         return collectFeatureNames(activedFeatures);
+    }
+
+    public Boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
 
     public void active(Feature feature) {
