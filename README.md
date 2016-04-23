@@ -5,10 +5,6 @@
 
 REST MicroService for managing products Feature Models (https://en.wikipedia.org/wiki/Feature_model)
 
-# Features Model MicroService
-
-REST MicroService for managing products Feature Models (https://en.wikipedia.org/wiki/Feature_model)
-
 As defined by Wikipedia, "a feature model is a compact representation of all the products of the Software Product Line (SPL) in terms of features". The focus of SPL development is on the systematic and efficient creation of similar programs.
 
 The goal of this project is to provide a REST based service for:
