@@ -6,6 +6,9 @@ import org.javiermf.features.exceptions.DuplicatedObjectException;
 import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
 import org.javiermf.features.models.ProductConfiguration;
+import org.javiermf.features.models.constraints.ConstraintExcludes;
+import org.javiermf.features.models.constraints.ConstraintRequires;
+import org.javiermf.features.models.constraints.FeatureConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,5 +86,29 @@ public class ProductsService {
         }
 
         productsDAO.deleteFeature(feature);
+    }
+
+    public FeatureConstraint addRequiresConstraintToProduct(String productName, String sourceFeatureName, String requiredFeatureName) {
+        Product product = productsDAO.findByName(productName);
+
+        ConstraintRequires constraintRequires = new ConstraintRequires(sourceFeatureName, requiredFeatureName);
+        constraintRequires.setForProduct(product);
+        productsDAO.insertConstraint(constraintRequires);
+
+        return constraintRequires;
+    }
+
+    public void deleteConstraintFromProduct(String productName, Long constraintId) {
+        productsDAO.deleteConstraintForProduct(productName, constraintId);
+    }
+
+    public FeatureConstraint addExcludesConstraintToProduct(String productName, String sourceFeatureName, String excludedFeatureName) {
+        Product product = productsDAO.findByName(productName);
+
+        ConstraintExcludes constraintExcludes = new ConstraintExcludes(sourceFeatureName, excludedFeatureName);
+        constraintExcludes.setForProduct(product);
+        productsDAO.insertConstraint(constraintExcludes);
+
+        return constraintExcludes;
     }
 }

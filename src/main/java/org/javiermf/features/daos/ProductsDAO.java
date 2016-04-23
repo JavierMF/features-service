@@ -75,4 +75,16 @@ public class ProductsDAO {
         deleteClause.where(qFeature.id.eq(feature.getId()));
         deleteClause.execute();
     }
+
+    @Transactional
+    public void insertConstraint(FeatureConstraint constraint) {
+        entityManager.persist(constraint);
+    }
+
+    @Transactional
+    public void deleteConstraintForProduct(String productName, Long constraintId) {
+        JPADeleteClause deleteClause = new JPADeleteClause(entityManager, qFeatureConstraint);
+        deleteClause.where(qFeatureConstraint.id.eq(constraintId));
+        deleteClause.execute();
+    }
 }

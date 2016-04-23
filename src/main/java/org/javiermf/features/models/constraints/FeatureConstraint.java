@@ -12,7 +12,7 @@ import javax.persistence.*;
 public abstract class FeatureConstraint {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
     @ManyToOne
@@ -28,5 +28,9 @@ public abstract class FeatureConstraint {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setForProduct(Product forProduct) {
+        this.forProduct = forProduct;
     }
 }

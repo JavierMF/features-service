@@ -29,6 +29,9 @@ public class ProductsResource {
     @Autowired
     ProductsFeaturesResource productsFeaturesResource;
 
+    @Autowired
+    ProductsConstraintsResource productsConstraintsResource;
+
 
     @GET
     public List<String> getAllProducts() {
@@ -66,7 +69,9 @@ public class ProductsResource {
         return productsFeaturesResource;
     }
 
-
-
+    @Path("{productName}/constraints")
+    public ProductsConstraintsResource productsConstraintsResource() {
+        return productsConstraintsResource;
+    }
 
 }
