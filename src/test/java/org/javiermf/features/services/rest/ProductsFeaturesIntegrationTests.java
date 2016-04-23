@@ -40,7 +40,7 @@ public class ProductsFeaturesIntegrationTests {
                         and()
                         .extract().response().as(List.class);
 
-        assertThat(boydResponse, hasSize(2));
+        assertThat(boydResponse, hasSize(3));
 
         Map<String, String> featureObject = (Map<String, String>) boydResponse.get(0);
         assertThat(featureObject.get("name"), is(anyOf(equalTo("Feature_1"), equalTo("Feature_2"))));
@@ -58,7 +58,7 @@ public class ProductsFeaturesIntegrationTests {
 
         Product product = productsDAO.findByName("Product_1");
 
-        assertThat(product.getProductFeatures(), hasSize(3));
+        assertThat(product.getProductFeatures(), hasSize(4));
 
         Feature newFeature = product.findProductFeatureByName("newFeature");
         assertThat(newFeature, is(notNullValue()));
@@ -76,7 +76,7 @@ public class ProductsFeaturesIntegrationTests {
 
         Product product = productsDAO.findByName("Product_1");
 
-        assertThat(product.getProductFeatures(), hasSize(2));
+        assertThat(product.getProductFeatures(), hasSize(3));
 
     }
 
@@ -107,7 +107,7 @@ public class ProductsFeaturesIntegrationTests {
 
 
         Product product = productsDAO.findByName("Product_1");
-        assertThat(product.getProductFeatures(), hasSize(1));
+        assertThat(product.getProductFeatures(), hasSize(2));
     }
 
 }

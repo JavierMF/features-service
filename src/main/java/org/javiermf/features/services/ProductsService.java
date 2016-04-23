@@ -40,6 +40,7 @@ public class ProductsService {
 
     public void deleteByName(String productName) {
         productsConfigurationsDAO.deleteConfigurationsForProduct(productName);
+        productsDAO.deleteConstraintsForProduct(productName);
         productsDAO.deleteByName(productName);
     }
 

@@ -49,7 +49,7 @@ public class ProductResourceIntegrationTests {
                 statusCode(HttpStatus.SC_OK).
                 and().
                 body("name", is("Product_1")).
-                body("productFeatures", hasSize(2));
+                body("productFeatures", hasSize(3));
 
     }
 

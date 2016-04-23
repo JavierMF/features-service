@@ -7,6 +7,8 @@ import org.javiermf.features.models.Feature;
 import org.javiermf.features.models.Product;
 import org.javiermf.features.models.QFeature;
 import org.javiermf.features.models.QProduct;
+import org.javiermf.features.models.constraints.FeatureConstraint;
+import org.javiermf.features.models.constraints.QFeatureConstraint;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,7 @@ public class ProductsDAO {
 
     QProduct qProduct = QProduct.product;
     QFeature qFeature = QFeature.feature;
+    QFeatureConstraint qFeatureConstraint = QFeatureConstraint.featureConstraint;
 
     public List<Product> findAll() {
         JPAQuery query = new JPAQuery(entityManager);
@@ -45,6 +48,15 @@ public class ProductsDAO {
         Product product = findByName(productName);
         entityManager.remove(product);
 
+    }
+
+    @Transactional
+    public void deleteConstraintsForProduct(String productName) {
+        Product product = findByName(productName);
+        for (FeatureConstraint featureConstraint : product.getProductFeatureConstraints()) {
+            entityManager.remove(featureConstraint);
+        }
+        product.getProductFeatureConstraints().clear();
     }
 
     @Transactional
