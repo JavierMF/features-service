@@ -27,35 +27,35 @@ The complete REST API specification can be found when running the application in
 ### Working wth Products
 
 To add a new product:
-
+```
 POST /products/ELEARNING_SITE
-
+```
 To add new features:
-
+```
 POST /products/ELEARNING_SITE/features/ONLINE_FORUM
-
+```
 To remove a feature:
-
+```
 DELETE /products/ELEARNING_SITE/features/REDEEM_CODES
-
+```
 To request a list with the names of all the available products:
-
+```
 GET /products
-
+```
 To request the features and constraints of a product:
-
+```
 GET /products/ELEARNING_SITE
-
+```
 To remove and existing product and all its configurations:
-
+```
 DELETE /product/ELEARNING_SITE
-
+```
 ### Working wth Product Feature Constraints
 
 Once added to a product, feature constraints can be removed:
-
+```
 DELETE /products/ELEARNING_SITE/constraints/4
-
+``````
 Currently we support the following constraints between features:
 
 #### Required Constraint
@@ -66,9 +66,9 @@ For instance, the PAYPAL_FEATURE requires that the COURSE_SELLING feature is act
 In fact, the COURSE_SELLING feature will not be able to be deactivated while the PAYPAL_FEATURE is active.
 
 To add a required constraint:
-
+```
 POST /products/ELEARNING_SITE/constraints/required
-
+```
 sending as form parameters "sourceConstraint=PAYPAL_FEATURE" and "requiredConstraint=SELLING_COURSES".
 
 #### Excluded Constraint
@@ -79,39 +79,30 @@ For instance, a ON_TRIAL_PERIOD feature excludes the COURSE_SELLING feature, so 
 If the COURSE_SELLING feature is actived while the ON_TRIAL_PERIOD is active, the service will save the activation but it will return an error and the configuration will be marked as invalid.
 
 To add an excluded constraint:
-
+```
 POST /products/ELEARNING_SITE/constraints/excluded
-
+```
 sending as form parameters "sourceConstraint=ON_TRIAL_PERIOD" and "excludedConstraint=SELLING_COURSES".
 
 ### Working wth Product Configurations
 
 To add a new configuration for one product:
-
+```
 POST /products/ELEARNING_SITE/configurations/CLIENT1
-
+```
 To activate a feature in a configuration:
-
+```
 POST /products/ELEARNING_SITE/configurations/CLIENT1/features/COURSE_SELLING
-
+```
 To deactivate a feature in a configuration:
-
+```
 DELETE /products/ELEARNING_SITE/configurations/CLIENT1/features/REDEEM_CODES
-
+```
 To query all the active features names in a configuration:
-
+```
 GET /products/ELEARNING_SITE/configurations/CLIENT1/features
-
+```
 To remove a configuration:
-
+```
 DELETE /products/ELEARNING_SITE/configurations/CLIENT1
-
-- VIDEO_LESSONS
-- ONLINE_FORUM
-- CHAT
-- MAILING_LIST
-- CREDIT_CARD_PAYMENT
-- PAYPAL_PAYMENT
-- WIRE_PAYMENT
-- REDEEM_CODES
-- COURSE_SELLING
+```
