@@ -13,7 +13,7 @@ insert into Constraint_Requires (id, for_product_id, source_feature_name, requir
 insert into Constraint_Requires (id, for_product_id, source_feature_name, required_feature_name ) values (2,1,'CREDIT_CARD','COURSE_SELLING');
 insert into Constraint_Excludes (id, for_product_id, source_feature_name, excluded_feature_name ) values (3,1,'IN_TRIAL_PERIOD','COURSE_SELLING');
 
-insert into Product_Configuration (id, name,product_id, valid) values (1, 'UNIVERSITY_X',1, 1);
+insert into Product_Configuration (id, name,product_id, is_valid) values (1, 'UNIVERSITY_X',1, 1);
 insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (1,1);
 insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (1,2);
 insert into Product_Configuration_Actived_Features (in_configurations_id, actived_features_id) values (1,3);
